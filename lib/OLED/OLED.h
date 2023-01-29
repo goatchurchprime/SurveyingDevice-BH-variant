@@ -1,0 +1,37 @@
+// OLED.h
+#ifndef OLED_H
+#define OLED_H
+
+#include <Arduino.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1327.h>
+
+class OLED {
+  public:
+
+    int rand_no;
+    OLED();
+    void Distance(double distance);
+    void Compass(double compass);
+    void Clino(double clino);
+    void Blutooth(bool ble_status);
+    void Battery(int batt_percentage);
+    void Initialise();
+    
+    double batt_voltage;
+    int batt_level;
+    int batt_percentage;
+    double distance;
+    double compass;
+    double clino;
+
+  private:
+    
+    #define SCREEN_WIDTH 128  // OLED display width, in pixels
+    #define SCREEN_HEIGHT 128 // OLED display height, in pixels
+    #define OLED_RESET -1     // can set an oled reset pin if desired
+    Adafruit_SSD1327 display = Adafruit_SSD1327(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET, 1000000);
+
+};
+
+#endif
