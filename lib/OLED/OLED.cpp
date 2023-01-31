@@ -72,7 +72,7 @@ void OLED::Battery(int batt_percentage) {
   display.drawRect(122, 4, 3, 6, SSD1327_WHITE);
   batt_level = (batt_percentage/100.00)*32;
   display.fillRect(90, 0, batt_level, 15, SSD1327_WHITE);
-  display.fillRect(90+batt_level, 1, 31-batt_level, 13, SSD1327_BLACK);
+  display.fillRect(91+batt_level, 1, 30-batt_level, 13, SSD1327_BLACK);
   display.setTextSize(2);
   display.setCursor(50, 0);
   display.print(batt_percentage);

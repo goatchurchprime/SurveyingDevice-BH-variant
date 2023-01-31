@@ -2,10 +2,13 @@
 #include "OLED.h"
 #include "BNO085.h"
 #include "lidar.h"
+#include "Battery_level.h"
 
 OLED oled; // create a OLED object
 BNO085 bno085;
 Lidar lidar;
+Battery_level battery_level;
+
 
 float new_combined_value;
 float combined_value;
@@ -25,7 +28,7 @@ void setup() {
 void loop() {
 
   bool ble_status = random(0,100);
-  int batt_percentage = random(0,100);
+  int batt_percentage = battery_level.battery_level_percent();
 
   float compass = bno085.Compass();
   float clino = bno085.Clino();
