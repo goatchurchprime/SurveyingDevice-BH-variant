@@ -14,6 +14,7 @@ class OLED {
     void Distance(double distance);
     void Compass(double compass);
     void Clino(double clino);
+    void Sensor_cal_status(int sensor_status);
     void Blutooth(bool ble_status);
     void Battery(int batt_percentage);
     void Initialise();
@@ -24,6 +25,7 @@ class OLED {
     double distance;
     double compass;
     double clino;
+    int sensor_status;
 
   private:
     

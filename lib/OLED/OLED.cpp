@@ -43,6 +43,13 @@ void OLED::Clino(double clino) {
   display.display();
 }
 
+void OLED::Sensor_cal_status(int sensor_status) {
+  display.setTextSize(2);
+  display.setCursor(23, 4);
+  display.print(sensor_status);
+  display.display();
+}
+
 void OLED::Blutooth(bool ble_status) {
   //insert switch case to update
 const unsigned char PROGMEM Bluetooth_icon [] = {

@@ -88,7 +88,7 @@ float BNO085::Compass() {
         else
        new_val = 360 - old_val;
     compass = new_val;
-    Serial.print(compass);                
+    //Serial.print(compass);                
   }
 return compass;
 }
@@ -110,9 +110,15 @@ float BNO085::Clino() {
         break;
     }
     Serial.print("  "); 
-    Serial.println(ypr.pitch);  
-    clino =  ypr.pitch;             
+    //Serial.println(ypr.pitch);  
+    clino =  ypr.pitch;          
   }
   return clino; 
+}
+
+int BNO085::sensor_cal_status() {
+    //Serial.println(sensorValue.status);
+    sensor_status = sensorValue.status;
+    return sensor_status;
 }
 
