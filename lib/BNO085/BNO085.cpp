@@ -122,3 +122,29 @@ int BNO085::sensor_cal_status() {
     return sensor_status;
 }
 
+bool BNO085::Quat(float* q) {
+  if (bno08x.wasReset()) {
+    Serial.print("sensor was reset ");
+    setReports(reportType, reportIntervalUs);
+  }
+  if (bno08x.getSensorEvent(&sensorValue)) {
+    // in this demo only one report type will be received depending on FAST_MODE define (above)
+    switch (sensorValue.sensorId) {
+      case SH2_ARVR_STABILIZED_RV:
+        q[0] = sensorValue.un.arvrStabilizedRV.i;
+        q[1] = sensorValue.un.arvrStabilizedRV.j;
+        q[2] = sensorValue.un.arvrStabilizedRV.k;
+        q[3] = sensorValue.un.arvrStabilizedRV.real;
+        break;
+      case SH2_GYRO_INTEGRATED_RV:
+        // faster (more noise?)
+        q[0] = sensorValue.un.gyroIntegratedRV.i;
+        q[1] = sensorValue.un.gyroIntegratedRV.j;
+        q[2] = sensorValue.un.gyroIntegratedRV.k;
+        q[3] = sensorValue.un.gyroIntegratedRV.real;
+        break;
+    }
+    return true; 
+  }
+  return false;
+}

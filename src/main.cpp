@@ -11,6 +11,7 @@ BNO085 bno085;
 Lidar lidar;
 Battery_level battery_level;
 BleGamepad bleGamepad("BrendansThingie");
+float quat[4]; 
 
 float new_combined_value;
 float combined_value;
@@ -29,38 +30,50 @@ void setup() {
 }
 
 int count = 0; 
+int trec = -1; 
 void loop() {
-  bool ble_status = random(0,100);
   int batt_percentage = battery_level.battery_level_percent();
+  if ((trec != -1) && (millis() - trec > 10)) {
+    bleGamepad.release(BUTTON_5);
+    trec = -1; 
+  }
 
   float compass = bno085.Compass();
   float clino = bno085.Clino();
+  bool bquat = bno085.Quat(quat); 
 
   combined_value = compass + clino;
   diff = combined_value - new_combined_value;
   
-  if (diff>threshold||diff<-threshold)  
-  {  
-  oled.Compass(compass);
+  if (abs(diff)<threshold) 
+    return;  
+
+  oled.Compass(compass+1000);
   oled.Clino(-clino);
-  float compass = bno085.Compass();
-  float clino = bno085.Clino();
   new_combined_value = compass + clino;
-  oled.Blutooth(ble_status);
   oled.Battery(batt_percentage);
   int sensor_status = bno085.sensor_cal_status();
   oled.Sensor_cal_status(sensor_status);
 
   if (bleGamepad.isConnected())
   {
-      Serial.println("Press buttons 5, 16 and start. Move all enabled axes to max. Set DPAD (hat 1) to down right.");
-      bleGamepad.press(BUTTON_5);
-      bleGamepad.setX((int)compass*10); 
-      bleGamepad.setY((int)(clino+90)*10); 
-      bleGamepad.setZ(count++); 
-//    void setRZ(int16_t rZ = 0);
+      oled.Blutooth(true);
+      if (bquat) {
+        bleGamepad.setAxes((int)((quat[0]+1)*16000), 
+                           (int)((quat[1]+1)*16000), 
+                           (int)((quat[2]+1)*16000), 
+                           (int)((quat[3]+1)*16000), 
+                           0, count++, 0, 0);
+
+        trec = millis(); 
+        Serial.print(count); 
+        Serial.print(" "); 
+        Serial.println(trec); 
+        bleGamepad.press(BUTTON_5);
+      }
 //    void setSlider(int16_t slider = 0);
   }
-  }
+  else 
+      oled.Blutooth(false);
 }
 

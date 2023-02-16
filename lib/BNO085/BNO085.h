@@ -16,6 +16,7 @@ class BNO085 {
     void Initialise();
     float Compass();
     float Clino();
+    bool Quat(float* q);
     int sensor_cal_status();
     float compass;
     float clino;
