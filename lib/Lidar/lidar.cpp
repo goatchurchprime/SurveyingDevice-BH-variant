@@ -282,7 +282,7 @@ double Lidar::get_measurement()
     return distance;
 }
 
-void Lidar::toggle_laser()
+bool Lidar::toggle_laser()
 {
     char generated_command[LIDAR_SEND_COMMAND_SIZE];
 
@@ -297,4 +297,5 @@ void Lidar::toggle_laser()
         laser_on = true;
     }
     Serial1.write(generated_command);
+    return laser_on; 
 }

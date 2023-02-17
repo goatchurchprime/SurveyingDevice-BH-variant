@@ -144,6 +144,10 @@ bool BNO085::Quat(float* q) {
         q[3] = sensorValue.un.gyroIntegratedRV.real;
         break;
     }
+    quaternionToEuler(q[3], q[0], q[1], q[2], &ypr, true); 
+    compass = (ypr.yaw < 0.0F ? -ypr.yaw : 360.0F - ypr.yaw);
+    clino = ypr.pitch;          
+
     return true; 
   }
   return false;

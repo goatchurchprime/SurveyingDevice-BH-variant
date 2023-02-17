@@ -13,6 +13,10 @@ void OLED::Initialise() {
   display.setTextColor(SSD1327_WHITE, SSD1327_BLACK); //sets the text background colour to black to overwrite existing numbers, prevents flicker. 
   //display.setContrast (0); // dim display (optional)
   display.clearDisplay();
+//  display.display();
+}
+
+void OLED::Display() {
   display.display();
 }
 
@@ -22,7 +26,7 @@ void OLED::Distance(double distance) {
   display.setCursor(0, 34);
   display.print(distance);
   display.println("m");
-  display.display();
+//  display.display();
 }
 
 void OLED::Compass(double compass) {
@@ -31,7 +35,7 @@ void OLED::Compass(double compass) {
   display.setCursor(0, 70);
   display.print(compass);
   display.print((char)247); // degree symbol 
-  display.display();
+//  display.display();
 }
 
 void OLED::Clino(double clino) {
@@ -40,14 +44,14 @@ void OLED::Clino(double clino) {
   display.setCursor(0, 106);
   display.print(clino);
   display.print((char)247); // degree symbol 
-  display.display();
+//  display.display();
 }
 
 void OLED::Sensor_cal_status(int sensor_status) {
   display.setTextSize(2);
   display.setCursor(23, 4);
   display.print(sensor_status);
-  display.display();
+//  display.display();
 }
 
 void OLED::Blutooth(bool ble_status) {
@@ -64,7 +68,7 @@ const unsigned char PROGMEM Bluetooth_icon [] = {
 //display.display();
 //delay(100);
 display.drawBitmap(0,0,Bluetooth_icon, 22, 22, 10);
-display.display();
+//display.display();
 }
 
 void OLED::Battery(int batt_percentage) {
@@ -77,5 +81,5 @@ void OLED::Battery(int batt_percentage) {
   display.setCursor(50, 0);
   display.print(batt_percentage);
   display.print("%");
-  display.display();
+//  display.display();
 }

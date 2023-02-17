@@ -49,7 +49,7 @@ class Lidar {
         double get_measurement();
 
         // Toggle laser
-        void toggle_laser();
+        bool toggle_laser();
 
     private:
         // Enable lidar via GPIO pin
