@@ -58,6 +58,8 @@ void BNO085::quaternionToEuler(float qr, float qi, float qj, float qk, euler_t* 
     }
 }
 
+
+
 void BNO085::quaternionToEulerRV(sh2_RotationVectorWAcc_t* rotational_vector, euler_t* ypr, bool degrees = false) {
     quaternionToEuler(rotational_vector->real, rotational_vector->i, rotational_vector->j, rotational_vector->k, ypr, degrees);
 }
